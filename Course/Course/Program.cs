@@ -47,6 +47,8 @@ namespace Course
             {
                 Console.WriteLine(emp.ToString());
             }
+
+            Console.WriteLine("somente testando o git");
         }
     }
 }
