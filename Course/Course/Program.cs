@@ -49,6 +49,8 @@ namespace Course
             }
 
             Console.WriteLine("somente testando o git");
+
+            Console.WriteLine("Como voce esta hoje?");
         }
     }
 }
