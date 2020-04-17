@@ -8,14 +8,52 @@ namespace Shop
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Enter the client data:");
+            Console.Write("Name: ");
+            string clientName = Console.ReadLine();
+            Console.Write("Email: ");
+            string email = Console.ReadLine();
+            Console.Write("Bith Date (DD/MM/YYYY): ");
+            DateTime birthdate = DateTime.Parse(Console.ReadLine());
+            
+            Console.WriteLine();
+
             Order order = new Order
             {
-                Id = 1000,
                 Moment = DateTime.Now,
-                Status = OrderStatus.PendingPayment
+                Status = OrderStatus.Processing,
+                Client = new Client(clientName, email, birthdate)
             };
 
-            Console.WriteLine(order);
+            Console.WriteLine("Enter order data:");
+            Console.Write("Status: ");
+            Console.WriteLine(order.Status.ToString());
+
+            Console.Write("How many items to this order? ");
+            int n = int.Parse(Console.ReadLine());
+
+            for(int i = 1; i <= n; i++)
+            {
+                Console.WriteLine($"Enter #{i} item data:");
+                
+                Console.Write("Product name: ");
+                string productName = Console.ReadLine();
+
+                Console.Write("Product price: ");
+                double productPrice = double.Parse(Console.ReadLine());
+
+                Console.Write("Quantity: ");
+                int quantity = int.Parse(Console.ReadLine());
+
+                Product product = new Product(productName, productPrice);
+                OrderItem orderItem = new OrderItem(quantity, productPrice, product);
+
+                order.AddItem(orderItem);
+
+                Console.WriteLine();
+            }
+
+            Console.WriteLine(order.ToString());
         }
     }
 }
