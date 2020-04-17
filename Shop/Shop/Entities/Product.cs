@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Globalization;
 
 namespace Shop.Entities
 {
@@ -17,6 +15,11 @@ namespace Shop.Entities
         {
             Name = name;
             Price = price;
+        }
+
+        public virtual string PriceTag()
+        {
+            return Name + " $ " + Price.ToString("F2", CultureInfo.InvariantCulture);
         }
     }
 }
