@@ -6,14 +6,14 @@ namespace tabuleiro
         public Posicao Posicao { get; set; }
         public Cor Cor { get; protected set; }
         public int qteMovimentos { get; protected set; }
-        public Tabuleiro tab { get; protected set; }
+        public Tabuleiro tabuleiro { get; protected set; }
 
-        public Peca(Posicao posicao, Cor cor, Tabuleiro tab)
+        public Peca(Cor cor, Tabuleiro tabuleiro)
         {
-            Posicao = posicao;
+            Posicao = null;
             Cor = cor;
             this.qteMovimentos = 0;
-            this.tab = tab;
+            this.tabuleiro = tabuleiro;
         }
     }
 }
