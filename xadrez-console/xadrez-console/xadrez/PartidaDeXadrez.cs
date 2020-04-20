@@ -12,6 +12,7 @@ namespace xadrez
         private HashSet<Peca> Pecas;
         private HashSet<Peca> Capturadas;
         public bool Xeque { get; private set; }
+        public Peca vulneravelEnPassant { get; private set; }
 
         public PartidaDeXadrez()
         {
@@ -157,6 +158,43 @@ namespace xadrez
 
         public void ColocarPecas()
         {
+
+            ColocarNovaPeca('a', 1, new Torre(tabuleiro, Cor.Branca));
+            ColocarNovaPeca('b', 1, new Cavalo(tabuleiro, Cor.Branca));
+            ColocarNovaPeca('c', 1, new Bispo(tabuleiro, Cor.Branca));
+            ColocarNovaPeca('d', 1, new Dama(tabuleiro, Cor.Branca));
+            ColocarNovaPeca('e', 1, new Rei(tabuleiro, Cor.Branca, this));
+            ColocarNovaPeca('f', 1, new Bispo(tabuleiro, Cor.Branca));
+            ColocarNovaPeca('g', 1, new Cavalo(tabuleiro, Cor.Branca));
+            ColocarNovaPeca('h', 1, new Torre(tabuleiro, Cor.Branca));
+            ColocarNovaPeca('a', 2, new Peao(tabuleiro, Cor.Branca, this));
+            ColocarNovaPeca('b', 2, new Peao(tabuleiro, Cor.Branca, this));
+            ColocarNovaPeca('c', 2, new Peao(tabuleiro, Cor.Branca, this));
+            ColocarNovaPeca('d', 2, new Peao(tabuleiro, Cor.Branca, this));
+            ColocarNovaPeca('e', 2, new Peao(tabuleiro, Cor.Branca, this));
+            ColocarNovaPeca('f', 2, new Peao(tabuleiro, Cor.Branca, this));
+            ColocarNovaPeca('g', 2, new Peao(tabuleiro, Cor.Branca, this));
+            ColocarNovaPeca('h', 2, new Peao(tabuleiro, Cor.Branca, this));
+
+            ColocarNovaPeca('a', 8, new Torre(tabuleiro, Cor.Preta));
+            ColocarNovaPeca('b', 8, new Cavalo(tabuleiro, Cor.Preta));
+            ColocarNovaPeca('c', 8, new Bispo(tabuleiro, Cor.Preta));
+            ColocarNovaPeca('d', 8, new Dama(tabuleiro, Cor.Preta));
+            ColocarNovaPeca('e', 8, new Rei(tabuleiro, Cor.Preta, this));
+            ColocarNovaPeca('f', 8, new Bispo(tabuleiro, Cor.Preta));
+            ColocarNovaPeca('g', 8, new Cavalo(tabuleiro, Cor.Preta));
+            ColocarNovaPeca('h', 8, new Torre(tabuleiro, Cor.Preta));
+            ColocarNovaPeca('a', 7, new Peao(tabuleiro, Cor.Preta, this));
+            ColocarNovaPeca('b', 7, new Peao(tabuleiro, Cor.Preta, this));
+            ColocarNovaPeca('c', 7, new Peao(tabuleiro, Cor.Preta, this));
+            ColocarNovaPeca('d', 7, new Peao(tabuleiro, Cor.Preta, this));
+            ColocarNovaPeca('e', 7, new Peao(tabuleiro, Cor.Preta, this));
+            ColocarNovaPeca('f', 7, new Peao(tabuleiro, Cor.Preta, this));
+            ColocarNovaPeca('g', 7, new Peao(tabuleiro, Cor.Preta, this));
+            ColocarNovaPeca('h', 7, new Peao(tabuleiro, Cor.Preta, this));
+
+
+            /*
             //Teste para xequemate
             ColocarNovaPeca('c', 1, new Torre(Cor.Branca, tabuleiro));
             ColocarNovaPeca('d', 1, new Rei(Cor.Branca, tabuleiro));
@@ -164,6 +202,8 @@ namespace xadrez
 
             ColocarNovaPeca('a', 8, new Rei(Cor.Preta, tabuleiro));
             ColocarNovaPeca('b', 8, new Torre(Cor.Preta, tabuleiro));
+            */
+
 
             /*
             ColocarNovaPeca('c', 1, new Torre(Cor.Branca, tabuleiro));
