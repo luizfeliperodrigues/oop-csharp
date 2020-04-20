@@ -6,15 +6,15 @@ namespace xadrez
     class PartidaDeXadrez
     {
         public Tabuleiro tabuleiro { get; private set; }
-        private int turno;
-        private Cor jorgadorAtual;
+        public int turno { get; private set; }
+        public Cor jogadorAtual { get; private set; }
         public bool terminada { get; private set; }
 
         public PartidaDeXadrez()
         {
             tabuleiro = new Tabuleiro(8, 8);
             turno = 1;
-            jorgadorAtual = Cor.Branca;
+            jogadorAtual = Cor.Branca;
             terminada = false;
             ColocarPecas();
         }
@@ -25,6 +25,51 @@ namespace xadrez
             p.IncrementarQteMovimentos();
             Peca pecaCapturada = tabuleiro.RetirarPeca(destino);
             tabuleiro.ColocarPeca(p, destino);
+        }
+
+        public void RealizaJogada(Posicao origem, Posicao destino)
+        {
+            ExecutaMovimento(origem, destino);
+            turno++;
+            MudaJogador();
+        }
+
+        private void MudaJogador()
+        {
+            if(jogadorAtual == Cor.Branca)
+            {
+                jogadorAtual = Cor.Preta;
+            }
+            else
+            {
+                jogadorAtual = Cor.Branca;
+            }
+        }
+
+        public void ValidarPosicaoDeOrigem(Posicao origem)
+        {
+            if(tabuleiro.Peca(origem) == null)
+            {
+                throw new TabuleiroException("Não existe peca na posicao de origem escolhida.");
+            }
+
+            if(jogadorAtual != tabuleiro.Peca(origem).Cor)
+            {
+                throw new TabuleiroException("A peça de origem escolhida não é sua.");
+            }
+
+            if (!tabuleiro.Peca(origem).ExisteMovimentosPossiveis())
+            {
+                throw new TabuleiroException("Não há movimentos possiveis para a peça de origem escolhida.");
+            }
+        }
+
+        public void ValidarPosicaoDeDestino(Posicao origem, Posicao destino)
+        {
+            if (!tabuleiro.Peca(origem).PodeMoverPara(destino))
+            {
+                throw new TabuleiroException("Posição de destino inválida.");
+            }
         }
 
         public void ColocarPecas()
