@@ -68,8 +68,15 @@ namespace xadrez
                 Xeque = false;
             }
 
-            turno++;
-            MudaJogador();
+            if (TesteXequemate(Adversaria(jogadorAtual)))
+            {
+                terminada = true;
+            }
+            else
+            {
+                turno++;
+                MudaJogador();
+            }
         }
 
         private void MudaJogador()
@@ -150,6 +157,15 @@ namespace xadrez
 
         public void ColocarPecas()
         {
+            //Teste para xequemate
+            ColocarNovaPeca('c', 1, new Torre(Cor.Branca, tabuleiro));
+            ColocarNovaPeca('d', 1, new Rei(Cor.Branca, tabuleiro));
+            ColocarNovaPeca('h', 7, new Torre(Cor.Branca, tabuleiro));
+
+            ColocarNovaPeca('a', 8, new Rei(Cor.Preta, tabuleiro));
+            ColocarNovaPeca('b', 8, new Torre(Cor.Preta, tabuleiro));
+
+            /*
             ColocarNovaPeca('c', 1, new Torre(Cor.Branca, tabuleiro));
             ColocarNovaPeca('c', 2, new Torre(Cor.Branca, tabuleiro));
             ColocarNovaPeca('d', 2, new Torre(Cor.Branca, tabuleiro));
@@ -163,7 +179,7 @@ namespace xadrez
             ColocarNovaPeca('e', 7, new Torre(Cor.Preta, tabuleiro));
             ColocarNovaPeca('e', 8, new Torre(Cor.Preta, tabuleiro));
             ColocarNovaPeca('d', 8, new Rei(Cor.Preta, tabuleiro));
-
+            */
         }
 
         private Cor Adversaria(Cor cor)
@@ -212,6 +228,40 @@ namespace xadrez
             }
 
             return false;
+        }
+
+        public bool TesteXequemate(Cor cor)
+        {
+            if (!EstaEmXeque(cor))
+            {
+                return false;
+            }
+            
+            foreach(Peca p in PecasEmJogo(cor))
+            {
+                bool[,] mat = p.MovimentosPossiveis();
+                for (int i=0; i < tabuleiro.Linhas; i++)
+                {
+                    for(int j = 0; j < tabuleiro.Colunas; j++)
+                    {
+                        if (mat[i, j])
+                        {
+                            Posicao origem = p.Posicao;
+                            Posicao destino = new Posicao(i, j);
+                            Peca pecaCapturada = ExecutaMovimento(origem, destino);
+                            bool testeXeque = EstaEmXeque(cor);
+                            DesfazMovimento(origem, destino, pecaCapturada);
+                            if (!testeXeque)
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                }
+
+            }
+
+            return true;
         }
     }
 }
