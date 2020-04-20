@@ -36,6 +36,27 @@ namespace xadrez
             {
                 Capturadas.Add(pecaCapturada);
             }
+
+            // #jogadaEspecial roque PEQUENO
+            if(p is Rei && destino.Coluna == origem.Coluna + 2)
+            {
+                Posicao origemTorre = new Posicao(origem.Linha, origem.Coluna + 3);
+                Posicao destinoTorre = new Posicao(origem.Linha, origem.Coluna+1);
+                Peca torre = tabuleiro.RetirarPeca(origemTorre);
+                torre.IncrementarQteMovimentos();
+                tabuleiro.ColocarPeca(torre, destinoTorre);
+            }
+
+            // #jogadaEspecial roque GRANDE
+            if (p is Rei && destino.Coluna == origem.Coluna - 2)
+            {
+                Posicao origemTorre = new Posicao(origem.Linha, origem.Coluna - 4);
+                Posicao destinoTorre = new Posicao(origem.Linha, origem.Coluna - 1);
+                Peca torre = tabuleiro.RetirarPeca(origemTorre);
+                torre.IncrementarQteMovimentos();
+                tabuleiro.ColocarPeca(torre, destinoTorre);
+            }
+
             return pecaCapturada;
         }
 
@@ -49,6 +70,26 @@ namespace xadrez
                 Capturadas.Remove(pecaCapturada);
             }
             tabuleiro.ColocarPeca(p, origem);
+
+            // #jogadaEspecial roque PEQUENO
+            if (p is Rei && destino.Coluna == origem.Coluna + 2)
+            {
+                Posicao origemTorre = new Posicao(origem.Linha, origem.Coluna + 3);
+                Posicao destinoTorre = new Posicao(origem.Linha, origem.Coluna + 1);
+                Peca torre = tabuleiro.RetirarPeca(destinoTorre);
+                torre.DecrementarQteMovimentos();
+                tabuleiro.ColocarPeca(torre, origemTorre);
+            }
+
+            // #jogadaEspecial roque GRANDE
+            if (p is Rei && destino.Coluna == origem.Coluna - 2)
+            {
+                Posicao origemTorre = new Posicao(origem.Linha, origem.Coluna - 4);
+                Posicao destinoTorre = new Posicao(origem.Linha, origem.Coluna - 1);
+                Peca torre = tabuleiro.RetirarPeca(destinoTorre);
+                torre.DecrementarQteMovimentos();
+                tabuleiro.ColocarPeca(torre, origemTorre);
+            }
         }
 
         public void RealizaJogada(Posicao origem, Posicao destino)

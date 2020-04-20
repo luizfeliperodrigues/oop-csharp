@@ -17,6 +17,12 @@ namespace xadrez
             return p == null || p.Cor != this.Cor;
         }
 
+        private bool testeTorreParaRoque(Posicao posicao)
+        {
+            Peca p = tabuleiro.Peca(posicao);
+            return p != null && p is Torre && p.Cor == Cor && p.qteMovimentos == 0;
+        }
+
         public override bool[,] MovimentosPossiveis()
         {
             bool[,] mat = new bool[tabuleiro.Linhas, tabuleiro.Colunas];
@@ -79,7 +85,7 @@ namespace xadrez
                 mat[pos.Linha, pos.Coluna] = true;
             }
 
-            /*
+            
             // #jogadaespecial roque
             if (qteMovimentos == 0 && !partida.Xeque)
             {
@@ -107,7 +113,6 @@ namespace xadrez
                     }
                 }
             }
-            */
 
             return mat;
         }
