@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Globalization;
 using System.Collections.Generic;
 
 namespace HandlingFile
@@ -22,7 +23,7 @@ namespace HandlingFile
                         while (!sr.EndOfStream)
                         {
                             string[] line = sr.ReadLine().Split(",");
-                            item = new Item(line[0], double.Parse(line[1])/100, int.Parse(line[2]));
+                            item = new Item(line[0], double.Parse(line[1], CultureInfo.InvariantCulture), int.Parse(line[2]));
                             items.Add(item);
                         }
                     }
